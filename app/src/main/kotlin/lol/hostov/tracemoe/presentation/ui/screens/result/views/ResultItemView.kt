@@ -140,7 +140,7 @@ fun ResultItem(searchViewModel: SearchViewModel, data: SearchResponseItem) {
 
         Column {
             Text(
-                text = data.anilist.title.english ?: data.anilist.title.native,
+                text = data.anilist.title.english ?: data.anilist.title.native ?: data.anilist.title.romaji ?: "",
                 color = Theme.colors.text,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,

@@ -15,19 +15,19 @@ data class AnilistResponse(
     )
 
     data class MediaItem(
-        val bannerImage: String,
+        val bannerImage: String?,
         val coverImage: CoverImage,
-        val duration: Int,
-        val endDate: Date,
-        val episodes: Int,
+        val duration: Int?,
+        val endDate: Date?,
+        val episodes: Int?,
         val externalLinks: List<ExternalLink>,
-        val format: String,
+        val format: String?,
         val genres: List<String>,
         val id: Int,
         val isAdult: Boolean,
-        val season: String,
+        val season: String?,
         val siteUrl: String,
-        val source: String,
+        val source: String?,
         val startDate: Date,
         val status: String,
         val studios: Studios,
@@ -36,14 +36,16 @@ data class AnilistResponse(
         val type: String,
     ) {
         data class CoverImage(
-            val medium: String,
-            val large: String,
+            val medium: String?,
+            val large: String?,
+            val extraLarge: String?,
+            val color: String?,
         )
 
         data class Date(
-            val year: Int,
-            val month: Int,
-            val day: Int,
+            val year: Int?,
+            val month: Int?,
+            val day: Int?,
         )
 
         data class ExternalLink(
@@ -68,10 +70,10 @@ data class AnilistResponse(
         }
 
         data class Title(
-            val native: String,
+            val native: String?,
             val romaji: String?,
             val english: String?,
-            val chinese: String?
+            val chinese: String?,
         )
     }
 }

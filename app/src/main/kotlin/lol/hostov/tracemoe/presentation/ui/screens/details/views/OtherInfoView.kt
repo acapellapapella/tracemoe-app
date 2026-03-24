@@ -21,14 +21,17 @@ private fun String.capitalized() = this.lowercase().replaceFirstChar { it.upperc
 
 @Composable
 fun OtherInfoView(item: AnilistResponse.MediaItem) {
-    val context = LocalContext.current
-    val date = { (year, month, day): AnilistResponse.MediaItem.Date ->
-        if (day == 0 && month == 0 && year == 0) context.getString(R.string.screen_result_unknown) else {
-            val months = context.resources.getStringArray(R.array.months)
+	val unknown = stringResource(R.string.screen_result_unknown)
 
-            "$day ${months[month - 1]} $year"
-        }
-    }
+    val context = LocalContext.current
+    val date = { date: AnilistResponse.MediaItem.Date? ->
+    	if (date == null) context.getString(R.string.screen_result_unknown)
+    	else if (date.day == 0 && date.month == 0 && date.year == 0) context.getString(R.string.screen_result_unknown)
+    	else {
+        	val months = context.resources.getStringArray(R.array.months)
+        	"${date.day} ${months[(date.month ?: 1) - 1]} ${date.year}"
+    	}
+	}
 
     Column {
         InfoItem(
@@ -41,7 +44,7 @@ fun OtherInfoView(item: AnilistResponse.MediaItem) {
         )
         InfoItem(
             title = stringResource(R.string.screen_result_season),
-            value = item.season.capitalized()
+            value = item.season?.capitalized() ?: unknown
         )
         InfoItem(
             title = stringResource(R.string.screen_result_status),
@@ -49,15 +52,15 @@ fun OtherInfoView(item: AnilistResponse.MediaItem) {
         )
         InfoItem(
             title = stringResource(R.string.screen_result_format),
-            value = item.format.capitalized()
+            value = item.format?.capitalized() ?: unknown
         )
         InfoItem(
             title = stringResource(R.string.screen_result_duration),
-            value = "${item.duration} min"
+            value = "${item.duration ?: "?"} min"
         )
         InfoItem(
             title = stringResource(R.string.screen_result_source),
-            value = item.source.capitalized()
+            value = item.source?.capitalized() ?: unknown
         )
     }
 }

@@ -65,7 +65,7 @@ fun BannerView(item: AnilistResponse.MediaItem) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                Poster(item.coverImage.large, item.isAdult)
+                Poster(item.coverImage.large ?: item.coverImage.medium ?: "", item.isAdult)
 
                 Title(item.title)
             }
@@ -121,7 +121,7 @@ private fun Banner(url: String?) {
 }
 
 @Composable
-private fun Poster(url: String, isAdult: Boolean) {
+private fun Poster(url: String?, isAdult: Boolean) {
     var imageIsLoading by remember { mutableStateOf(true) }
 
     Box(contentAlignment = Alignment.TopEnd) {
@@ -161,7 +161,7 @@ private fun Title(title: AnilistResponse.MediaItem.Title) {
     ) {
         SelectionContainer {
             Text(
-                text = title.native,
+                text = title.native ?: "",
                 color = Theme.colors.textSecondary,
                 fontSize = 14.sp,
                 modifier = Modifier.basicMarquee(iterations = Int.MAX_VALUE),
@@ -171,7 +171,7 @@ private fun Title(title: AnilistResponse.MediaItem.Title) {
 
         SelectionContainer {
             Text(
-                text = title.english ?: title.romaji ?: title.native,
+                text = title.english ?: title.romaji ?: title.native ?: "",
                 color = Theme.colors.text,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,

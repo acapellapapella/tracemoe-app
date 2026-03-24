@@ -21,7 +21,7 @@ fun TitlesView(
 
         InfoItem(
             title = stringResource(R.string.screen_result_native),
-            value = title.native
+            value = title.native ?: stringResource(R.string.screen_result_unknown)
         )
 
         InfoItem(
